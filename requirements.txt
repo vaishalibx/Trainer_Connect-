@@ -4,5 +4,5 @@ numpy==1.26.4
 sentence-transformers==2.5.1
 supabase==2.4.0
 python-dotenv==1.0.1
-phi-client==0.8.0
+phidata
 groq==0.4.2 

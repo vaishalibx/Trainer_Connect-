@@ -128,7 +128,6 @@
 # </style>
 # """, unsafe_allow_html=True)
 
-
 import warnings
 warnings.filterwarnings('ignore', category=UserWarning)
 
@@ -136,6 +135,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer    #Embedding 
+# Using the official supabase client
 from supabase import create_client, Client
 from dotenv import load_dotenv
 import os
@@ -144,7 +144,7 @@ from phi.llm.groq import Groq
 import logging
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("_name_")
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -156,15 +156,7 @@ if not supabase_url or not supabase_key:
     st.stop()
 
 try:
-    supabase: Client = create_client(
-        supabase_url=supabase_url,
-        supabase_key=supabase_key,
-        options={
-            'headers': {
-                'Authorization': f'Bearer {supabase_key}'
-            }
-        }
-    )
+    supabase: Client = create_client(supabase_url, supabase_key)
 except Exception as e:
     st.error(f"Failed to create Supabase client: {e}")
     logger.error(f"Supabase client creation error: {e}", exc_info=True)
